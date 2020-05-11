@@ -1,5 +1,5 @@
 import mongoose, { MongooseDocumentOptionals } from 'mongoose';
-
+import { Password } from '../services/password';
 // An interface that describes the properties that are required to create a new user.
 
 interface UserAttrs {
@@ -28,6 +28,13 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+userSchema.pre('save', async function (done) {
+  if (this.isModified('password')) {
+    const hashed = await Password.toHash(this.get('password'));
+    this.set('password', hashed);
+  }
+  done();
+});
 //Below function is to make mongo work with typescript
 userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
