@@ -1,13 +1,12 @@
 import request from 'supertest';
 import { app } from '../../app';
 
-it('returns a 20 on succesful signup'),
-  async () => {
-    return request(app)
-      .post('/api/users/signup')
-      .send({
-        email: 'test@test.com',
-        password: 'password',
-      })
-      .expect(201);
-  };
+it('returns a 20 on succesful signup', async () => {
+  return request(app)
+    .post('/api/users/signup')
+    .send({
+      email: 'test@test.com',
+      password: 'password',
+    })
+    .expect(201);
+});
