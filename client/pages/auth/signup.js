@@ -1,46 +1,21 @@
 import { useState } from 'react';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import useRequest from '../../hooks/use-request';
 export default () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
+  const { doRequest, errors } = useRequest({
+    url: '/api/users/signup',
+    method: 'post',
+    body: {
+      email,
+      password,
+    },
+  });
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await axios.post('/api/users/signup', {
-        email,
-        password,
-      });
-      notifySuccess('Success!');
-    } catch (err) {
-      setErrors(err.response.data.errors);
-      errors.map((err) => notifyErr(err.message));
-    }
-  };
 
-  const notifyErr = (msg) => {
-    toast.error(msg, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-  const notifySuccess = (msg) => {
-    toast.success(msg, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    doRequest();
   };
 
   return (
@@ -73,7 +48,6 @@ export default () => {
         </div>
         <button className='button is-primary'>Sign Up</button>
       </form>
-      <ToastContainer />
     </div>
   );
 };
