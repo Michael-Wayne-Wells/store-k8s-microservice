@@ -11,13 +11,7 @@ it('return a 400 when attempting to sign in with a non existing account', async 
     .expect(400);
 });
 it('return a 400 with an invalid password', async () => {
-  await request(app)
-    .post('/api/users/signup')
-    .send({
-      email: 'test@test.com',
-      password: 'password',
-    })
-    .expect(201);
+  await global.signup();
   return request(app)
     .post('/api/users/signin')
     .send({
@@ -27,13 +21,7 @@ it('return a 400 with an invalid password', async () => {
     .expect(400);
 });
 it('returns a 201 on succesful signin and returns cookie', async () => {
-  await request(app)
-    .post('/api/users/signup')
-    .send({
-      email: 'test@test.com',
-      password: 'password',
-    })
-    .expect(201);
+  await global.signup();
   const response = await request(app)
     .post('/api/users/signin')
     .send({
