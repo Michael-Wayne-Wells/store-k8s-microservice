@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-export default ({ url, method, body }) => {
+export default ({ url, method, body, onSuccess }) => {
   const [errors, setErrors] = useState(null);
   const notifyErr = (msg) => {
     toast.error(msg, {
@@ -29,6 +29,9 @@ export default ({ url, method, body }) => {
     try {
       setErrors(null);
       const response = await axios[method](url, body);
+      if (onSuccess) {
+        onSuccess(response.data);
+      }
       notifySuccess('success');
       return response.data;
     } catch (err) {
