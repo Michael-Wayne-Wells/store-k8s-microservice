@@ -28,6 +28,13 @@ router.put(
     if (product.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
+
+    product.set({
+      title: req.body.title,
+      price: req.body.price,
+    });
+
+    await product.save();
     res.send(product);
   }
 );
