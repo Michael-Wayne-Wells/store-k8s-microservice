@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { requireAuth, validateRequest } from '@mwproducts/common';
 import { body } from 'express-validator';
+import { Product } from '../models/product';
 const router = express.Router();
 
 router.post(
@@ -10,8 +11,17 @@ router.post(
   body('price').isFloat({ gt: 0 }).withMessage('Price must be greater that 0'),
 
   validateRequest,
-  (req: Request, res: Response) => {
-    res.sendStatus(200);
+  async (req: Request, res: Response) => {
+    const { title, price } = req.body;
+
+    const product = Product.build({
+      title,
+      price,
+      userId: req.currentUser!.id,
+    });
+    await product.save();
+
+    res.status(201).send(product);
   }
 );
 
