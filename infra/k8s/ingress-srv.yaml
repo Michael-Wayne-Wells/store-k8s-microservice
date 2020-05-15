@@ -16,7 +16,7 @@ spec:
               servicePort: 3000
           - path: /api/products/?(.*)
             backend:
-              serviceName: product-srv
+              serviceName: products-srv
               servicePort: 3000
           - path: /?(.*)
             backend:
