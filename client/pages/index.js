@@ -4,7 +4,7 @@ const LandingPage = ({ currentUser }) => {
   return currentUser ? (
     <h1 className='title'>You are signed in</h1>
   ) : (
-    <h1 className='title'>You are not signed in</h1>
+    <h1 className='title'>You are NOT signed in</h1>
   );
 };
 

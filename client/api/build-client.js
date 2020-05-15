@@ -9,7 +9,7 @@ export default ({ req }) => {
     });
   } else {
     return axios.create({
-      baseURL: '/',
+      baseUrl: '/',
     });
   }
 };
