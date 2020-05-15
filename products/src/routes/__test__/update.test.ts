@@ -55,4 +55,21 @@ it('returns 400 if user provides invalid title or price', async () => {
     .send({ title: 'sfsa', price: -19 })
     .expect(400);
 });
-it('updates product if provided valid inputs and user authenticated', async () => {});
+it('updates product if provided valid inputs and user authenticated', async () => {
+  const cookie = global.signup();
+  const response = await request(app)
+    .post('/api/products')
+    .set('Cookie', cookie)
+    .send({
+      title: 'book',
+      price: 20,
+    });
+
+  const update = await request(app)
+    .put(`/api/products/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({ title: 'not-book', price: 30 })
+    .expect(200);
+  expect(update.body.title).toEqual('not-book');
+  expect(update.body.price).toEqual(30);
+});
