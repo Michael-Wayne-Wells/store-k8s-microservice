@@ -7,8 +7,7 @@ import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
 import { signupRouter } from './routes/signup';
 import { signoutRouter } from './routes/signout';
-import { errorHandler } from './middlewars/error-handler';
-import { NotFoundError } from './errors/not-found-errors';
+import { errorHandler, NotFoundError } from '@mwproducts/common';
 
 const app = express();
 app.set('trust proxy', true);

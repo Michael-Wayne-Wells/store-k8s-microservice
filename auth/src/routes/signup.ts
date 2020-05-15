@@ -2,8 +2,7 @@ import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/user';
-import { BadRequestError } from '../errors/bad-request-error';
-import { validateRequest } from '../middlewars/validate-request';
+import { validateRequest, BadRequestError } from '@mwproducts/common';
 const router = express.Router();
 
 router.post(
