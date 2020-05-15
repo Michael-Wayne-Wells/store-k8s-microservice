@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 export default ({ Component, pageProps }) => {
   return (
     <>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
       <ToastContainer />
     </>
   );
