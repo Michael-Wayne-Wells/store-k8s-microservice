@@ -2,10 +2,12 @@ import 'react-bulma-components/dist/react-bulma-components.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import buildClient from '../api/build-client';
 import { ToastContainer } from 'react-toastify';
+import Header from '../components/Header';
 const AppComponent = ({ Component, pageProps, currentUser }) => {
+  console.log(currentUser);
   return (
     <>
-      <h1>{currentUser.email}</h1>
+      <Header currentUser={currentUser} />
       <Component {...pageProps} />
       <ToastContainer />
     </>
