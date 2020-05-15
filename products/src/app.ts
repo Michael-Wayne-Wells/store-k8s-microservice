@@ -4,7 +4,7 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@mwproducts/common';
 import { createProductRouter } from './routes/new';
-
+import { showProductRouter } from './routes/show';
 const app = express();
 app.set('trust proxy', true);
 app.use(json());
@@ -16,6 +16,8 @@ app.use(
 );
 app.use(currentUser);
 app.use(createProductRouter);
+app.use(showProductRouter);
+
 app.all('*', async (req, res) => {
   throw new NotFoundError();
 });
