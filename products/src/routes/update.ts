@@ -18,6 +18,9 @@ router.put(
     if (!product) {
       throw new NotFoundError();
     }
+    if (product.userId !== req.currentUser!.id) {
+      throw new NotAuthorizedError();
+    }
     res.send(product);
   }
 );
