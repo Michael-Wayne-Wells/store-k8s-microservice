@@ -1,5 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app';
+import { Product } from '../../models/product';
 
 it('has a route handler to /api/products for post request', async () => {
   const response = await request(app).post('/api/products').send({});
@@ -49,13 +50,21 @@ it('returns error for invalid price', async () => {
     })
     .expect(400);
 });
-it('creates ticket if inputs are valid', async () => {
+it('creates Product if inputs are valid', async () => {
+  let products = await Product.find({});
+  expect(products.length).toEqual(0);
+  const title = 'productwoo';
   await request(app)
     .post('/api/products')
     .set('Cookie', global.signup())
     .send({
-      title: 'skdjfks',
+      title,
       price: 10,
     })
     .expect(201);
+
+  products = await Product.find({});
+  expect(products.length).toEqual(1);
+  expect(products[0].price).toEqual(10);
+  expect(products[0].title).toEqual(title);
 });
