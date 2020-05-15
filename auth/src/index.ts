@@ -4,8 +4,11 @@ const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY undifined');
   }
+  if (!process.env.MONGO_URI) {
+    throw new Error('MONGU_URI requried to connect');
+  }
   try {
-    mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
+    mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
