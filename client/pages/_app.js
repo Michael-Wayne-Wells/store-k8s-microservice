@@ -4,7 +4,6 @@ import buildClient from '../api/build-client';
 import { ToastContainer } from 'react-toastify';
 import Header from '../components/Header';
 const AppComponent = ({ Component, pageProps, currentUser }) => {
-  console.log(currentUser);
   return (
     <>
       <Header currentUser={currentUser} />
@@ -22,8 +21,6 @@ AppComponent.getInitialProps = async (appContext) => {
   if (appContext.Component.getInitialProps) {
     pageProps = await appContext.Component.getInitialProps(appContext.ctx);
   }
-
-  console.log(pageProps);
 
   return {
     pageProps,
