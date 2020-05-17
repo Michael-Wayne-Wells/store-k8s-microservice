@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
 import { requireAuth, validateRequest } from '@mwproducts/common';
 import { body } from 'express-validator';
+import { ProductCreatedPublisher } from '../events/publishers/product-created-publisher';
+import { natsWrapper } from '../nats-wrapper';
 import { Product } from '../models/product';
 const router = express.Router();
 
@@ -20,7 +22,12 @@ router.post(
       userId: req.currentUser!.id,
     });
     await product.save();
-
+    new ProductCreatedPublisher(natsWrapper.client).publish({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      userId: product.userId,
+    });
     res.status(201).send(product);
   }
 );
