@@ -4,6 +4,8 @@ import {
   requireAuth,
   validateRequest,
   NotFoundError,
+  OrderStatus,
+  BadRequestError,
 } from '@mwproducts/common';
 import { Product } from '../models/product';
 import { Order } from '../models/order';
@@ -29,6 +31,20 @@ router.post(
       throw new NotFoundError();
     }
     // check if ticket is reserved
+    // Run queury to look at all order to check it it contains product and not cancelled.
+    const existingOrder = await Order.findOne({
+      product: product,
+      status: {
+        $in: [
+          OrderStatus.Created,
+          OrderStatus.AwaitingPayment,
+          OrderStatus.Complete,
+        ],
+      },
+    });
+    if (existingOrder) {
+      throw new BadRequestError('Product out of stock!');
+    }
 
     // Calculate an expiration date
 
