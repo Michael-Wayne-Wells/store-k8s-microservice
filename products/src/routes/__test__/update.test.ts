@@ -1,6 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
+import { natsWrapper } from '../../nats-wrapper';
 
 it('returns 404 if id does not exitst', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
@@ -72,4 +73,22 @@ it('updates product if provided valid inputs and user authenticated', async () =
     .expect(200);
   expect(update.body.title).toEqual('not-book');
   expect(update.body.price).toEqual(30);
+});
+
+it('publishes an event', async () => {
+  const cookie = global.signup();
+  const response = await request(app)
+    .post('/api/products')
+    .set('Cookie', cookie)
+    .send({
+      title: 'book',
+      price: 20,
+    });
+
+  const update = await request(app)
+    .put(`/api/products/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({ title: 'not-book', price: 30 })
+    .expect(200);
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
