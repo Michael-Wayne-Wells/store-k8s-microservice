@@ -12,6 +12,8 @@ import { Order } from '../models/order';
 import { body } from 'express-validator';
 const router = express.Router();
 
+const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+
 router.post(
   '/api/orders',
   requireAuth,
@@ -30,29 +32,29 @@ router.post(
     if (!product) {
       throw new NotFoundError();
     }
+
     // check if ticket is reserved
+    const isReserved = await product.isReserved();
     // Run queury to look at all order to check it it contains product and not cancelled.
-    const existingOrder = await Order.findOne({
-      product: product,
-      status: {
-        $in: [
-          OrderStatus.Created,
-          OrderStatus.AwaitingPayment,
-          OrderStatus.Complete,
-        ],
-      },
-    });
-    if (existingOrder) {
+
+    if (isReserved) {
       throw new BadRequestError('Product out of stock!');
     }
 
     // Calculate an expiration date
-
+    const expiration = new Date();
+    expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
     // Build an order and save to DB
-
+    const order = Order.build({
+      userId: req.currentUser!.id,
+      status: OrderStatus.Created,
+      expiresAt: expiration,
+      product,
+    });
+    await order.save();
     // publish an event that an order was created
 
-    res.send({});
+    res.status(201).send(order);
   }
 );
 

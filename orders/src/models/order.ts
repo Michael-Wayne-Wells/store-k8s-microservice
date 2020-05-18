@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { OrderStatus } from '@mwproducts/common';
 import { ProductDoc } from './product';
+
+export { OrderStatus };
 interface OrderAttrs {
   userId: string;
   status: OrderStatus;

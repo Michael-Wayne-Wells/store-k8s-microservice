@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import { Order, OrderStatus } from './order';
 interface ProductAttrs {
   title: string;
   price: number;
@@ -8,6 +8,7 @@ interface ProductAttrs {
 export interface ProductDoc extends mongoose.Document {
   title: string;
   price: number;
+  isReserved(): Promise<boolean>;
 }
 
 interface ProductModel extends mongoose.Model<ProductDoc> {
@@ -38,6 +39,21 @@ const productSchema = new mongoose.Schema(
 
 productSchema.statics.build = (attrs: ProductAttrs) => {
   return new Product(attrs);
+};
+
+productSchema.methods.isReserved = async function () {
+  const existingOrder = await Order.findOne({
+    product: this,
+    status: {
+      $in: [
+        OrderStatus.Created,
+        OrderStatus.AwaitingPayment,
+        OrderStatus.Complete,
+      ],
+    },
+  });
+
+  return !!existingOrder;
 };
 
 const Product = mongoose.model<ProductDoc, ProductModel>(
