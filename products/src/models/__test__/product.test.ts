@@ -7,7 +7,6 @@ it('implements optimistic concurrenct control', async () => {
     userId: '123',
   });
   await product.save();
-
   const firstInstance = await Product.findById(product.id);
   const secondInstance = await Product.findById(product.id);
 
@@ -17,4 +16,18 @@ it('implements optimistic concurrenct control', async () => {
   await firstInstance!.save();
 
   await expect(secondInstance!.save()).rejects.toThrow();
+});
+it('increment version number on multiple saves', async () => {
+  const product = Product.build({
+    title: 'book',
+    price: 20,
+    userId: '123',
+  });
+
+  await product.save();
+  expect(product.version).toEqual(0);
+  await product.save();
+  expect(product.version).toEqual(1);
+  await product.save();
+  expect(product.version).toEqual(2);
 });
