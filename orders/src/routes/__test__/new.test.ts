@@ -3,6 +3,7 @@ import request from 'supertest';
 import { app } from '../../app';
 import { Order, OrderStatus } from '../../models/order';
 import { Product } from '../../models/product';
+import { natsWrapper } from '../../nats-wrapper';
 it('returns an error if no user', async () => {
   const productId = mongoose.Types.ObjectId();
 
@@ -47,4 +48,17 @@ it('reserves a ticket', async () => {
     .expect(201);
 });
 
-it.todo('emits an order created event');
+it('emits an order created event', async () => {
+  const product = Product.build({
+    title: 'book',
+    price: 20,
+  });
+  await product.save();
+  await request(app)
+    .post('/api/orders')
+    .set('Cookie', global.signup())
+    .send({ productId: product.id })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
