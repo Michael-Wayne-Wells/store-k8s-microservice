@@ -7,6 +7,8 @@ import {
   NotAuthorizedError,
 } from '@mwproducts/common';
 import { Product } from '../models/product';
+import { ProductUpdatedPublisher } from '../events/publishers/product-updated-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -35,6 +37,12 @@ router.put(
     });
 
     await product.save();
+    new ProductUpdatedPublisher(natsWrapper.client).publish({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      userId: product.userId,
+    });
     res.send(product);
   }
 );
