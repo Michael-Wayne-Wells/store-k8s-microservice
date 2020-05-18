@@ -5,6 +5,8 @@ import {
   NotAuthorizedError,
 } from '@mwproducts/common';
 import { Order, OrderStatus } from '../models/order';
+import { OrderCancelledPublisher } from '../events/publisher/order-cancelled-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -23,7 +25,12 @@ router.delete(
     }
     order.status = OrderStatus.Cancelled;
     await order.save();
-
+    new OrderCancelledPublisher(natsWrapper.client).publish({
+      id: order.id,
+      product: {
+        id: order.product.id,
+      },
+    });
     res.status(204).send(order);
   }
 );
