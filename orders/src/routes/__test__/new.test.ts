@@ -46,3 +46,5 @@ it('reserves a ticket', async () => {
     .send({ productId: product.id })
     .expect(201);
 });
+
+it.todo('emits an order created event');
