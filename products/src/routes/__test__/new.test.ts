@@ -2,6 +2,8 @@ import request from 'supertest';
 import { app } from '../../app';
 import { Product } from '../../models/product';
 
+jest.mock('../../nats-wrapper');
+
 it('has a route handler to /api/products for post request', async () => {
   const response = await request(app).post('/api/products').send({});
   expect(response.status).not.toEqual(404);
