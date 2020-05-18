@@ -8,11 +8,11 @@ router.post(
   '/api/orders',
   requireAuth,
   [
-    body('ticketId')
+    body('productId')
       .not()
       .isEmpty()
       .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
-      .withMessage('Ticketid must be provided'),
+      .withMessage('productId must be provided'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
