@@ -1,8 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 import { Product } from '../../models/product';
-
-jest.mock('../../nats-wrapper');
+import { natsWrapper } from '../../nats-wrapper';
 
 it('has a route handler to /api/products for post request', async () => {
   const response = await request(app).post('/api/products').send({});
@@ -69,4 +68,19 @@ it('creates Product if inputs are valid', async () => {
   expect(products.length).toEqual(1);
   expect(products[0].price).toEqual(10);
   expect(products[0].title).toEqual(title);
+});
+it('publishes an event', async () => {
+  let products = await Product.find({});
+  expect(products.length).toEqual(0);
+  const title = 'productwoo';
+  await request(app)
+    .post('/api/products')
+    .set('Cookie', global.signup())
+    .send({
+      title,
+      price: 10,
+    })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
