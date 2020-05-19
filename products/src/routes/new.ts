@@ -26,6 +26,7 @@ router.post(
       id: product.id,
       title: product.title,
       price: product.price,
+      version: product.version,
       userId: product.userId,
     });
     res.status(201).send(product);
