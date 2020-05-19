@@ -5,6 +5,7 @@ import {
   NotFoundError,
   requireAuth,
   NotAuthorizedError,
+  BadRequestError,
 } from '@mwproducts/common';
 import { Product } from '../models/product';
 import { ProductUpdatedPublisher } from '../events/publishers/product-updated-publisher';
@@ -26,6 +27,9 @@ router.put(
     const product = await Product.findById(req.params.id);
     if (!product) {
       throw new NotFoundError();
+    }
+    if (product.orderId) {
+      throw new BadRequestError('Cannot edit a reserved product');
     }
     if (product.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();

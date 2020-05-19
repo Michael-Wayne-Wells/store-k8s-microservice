@@ -1,6 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
+import { Product } from '../../models/product';
 import { natsWrapper } from '../../nats-wrapper';
 
 it('returns 404 if id does not exitst', async () => {
@@ -91,4 +92,22 @@ it('publishes an event', async () => {
     .send({ title: 'not-book', price: 30 })
     .expect(200);
   expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
+it('rejects update if product reserved', async () => {
+  const cookie = global.signup();
+  const response = await request(app)
+    .post('/api/products')
+    .set('Cookie', cookie)
+    .send({
+      title: 'book',
+      price: 20,
+    });
+  const product = await Product.findById(response.body.id);
+  product!.set({ orderId: mongoose.Types.ObjectId().toHexString() });
+  await product!.save();
+  const update = await request(app)
+    .put(`/api/products/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({ title: 'not-book', price: 30 })
+    .expect(400);
 });
