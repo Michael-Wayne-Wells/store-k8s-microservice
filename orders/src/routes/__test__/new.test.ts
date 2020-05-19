@@ -16,6 +16,7 @@ it('returns an error if no user', async () => {
 it('returns an error if product reserved', async () => {
   const product = Product.build({
     title: 'book',
+    id: new mongoose.Types.ObjectId().toHexString(),
     price: 20,
   });
   await product.save();
@@ -38,6 +39,7 @@ it('reserves a ticket', async () => {
   const product = Product.build({
     title: 'book',
     price: 20,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
   await product.save();
 
@@ -51,6 +53,7 @@ it('reserves a ticket', async () => {
 it('emits an order created event', async () => {
   const product = Product.build({
     title: 'book',
+    id: new mongoose.Types.ObjectId().toHexString(),
     price: 20,
   });
   await product.save();

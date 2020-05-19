@@ -1,10 +1,12 @@
 import request from 'supertest';
 import { app } from '../../app';
+import mongoose from 'mongoose';
 import { Product } from '../../models/product';
 
 it('fetches the order', async () => {
   const product = Product.build({
     title: 'book',
+    id: new mongoose.Types.ObjectId().toHexString(),
     price: 20,
   });
   await product.save();
@@ -28,6 +30,7 @@ it('fetches the order', async () => {
 it('returns an error if the order doesn not belong to user', async () => {
   const product = Product.build({
     title: 'book',
+    id: new mongoose.Types.ObjectId().toHexString(),
     price: 20,
   });
   await product.save();
