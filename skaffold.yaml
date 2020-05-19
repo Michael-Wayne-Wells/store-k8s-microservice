@@ -40,6 +40,10 @@ build:
       context: expiration
       docker:
         dockerfile: Dockerfile
+    - image: mwells1286/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
       sync:
         manual:
           - src: 'src/**/*.js'
