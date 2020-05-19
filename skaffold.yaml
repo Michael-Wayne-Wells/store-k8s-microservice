@@ -36,6 +36,10 @@ build:
       context: orders
       docker:
         dockerfile: Dockerfile
+    - image: mwells1286/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
       sync:
         manual:
           - src: 'src/**/*.js'
