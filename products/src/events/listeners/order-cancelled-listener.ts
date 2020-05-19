@@ -18,10 +18,10 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
     await product.save();
     await new ProductUpdatedPublisher(this.client).publish({
       id: product.id,
-      title: product.title,
-      price: product.price,
-      userId: product.userId,
       orderId: product.orderId,
+      userId: product.userId,
+      price: product.price,
+      title: product.title,
       version: product.version,
     });
     msg.ack();
