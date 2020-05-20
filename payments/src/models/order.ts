@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { OrderStatus } from '@mwproducts/common';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+import { OrderStatus } from '@mwproducts/common';
 interface OrderAttrs {
   id: string;
   version: number;
@@ -50,7 +50,7 @@ orderSchema.plugin(updateIfCurrentPlugin);
 orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order({
     _id: attrs.id,
-    versions: attrs.version,
+    version: attrs.version,
     price: attrs.price,
     userId: attrs.userId,
     status: attrs.status,
