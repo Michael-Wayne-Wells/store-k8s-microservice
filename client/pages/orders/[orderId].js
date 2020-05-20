@@ -10,6 +10,7 @@ const OrderShow = ({ order, currentUser }) => {
     method: 'post',
     body: {
       orderId: order.id,
+      token: 'tok_visa',
     },
     onSuccess: () => Router.push('/orders'),
   });
