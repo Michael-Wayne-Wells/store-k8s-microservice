@@ -1,17 +1,41 @@
 import buildClient from '../api/build-client';
+import Link from 'next/link';
+const LandingPage = ({ currentUser, products }) => {
+  const productList = products.map((product) => {
+    return (
+      <tr key={product.id}>
+        <td>{product.title}</td>
+        <td>{product.price}</td>
+        <td>
+          <Link href='/products/[productId]' as={`/products/${product.id}`}>
+            <a>View</a>
+          </Link>
+        </td>
+      </tr>
+    );
+  });
 
-const LandingPage = ({ currentUser }) => {
-  return currentUser ? (
-    <h1 className='title'>You are signed in</h1>
-  ) : (
-    <h1 className='title'>You are NOT signed in</h1>
+  return (
+    <div>
+      <h2>Products</h2>
+      <table className='table'>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>{productList}</tbody>
+      </table>
+    </div>
   );
 };
 
-LandingPage.getInitialProps = async (context) => {
-  const client = buildClient(context);
-  const { data } = await client.get('/api/users/currentuser');
-  return data;
+LandingPage.getInitialProps = async (context, client, currentUser) => {
+  const { data } = await client.get('/api/products');
+
+  return { products: data };
 };
 
 export default LandingPage;
