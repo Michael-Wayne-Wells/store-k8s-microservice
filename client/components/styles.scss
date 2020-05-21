@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+// If need, change your variables before importing Bulma
+
+@import '~bulmaswatch/darkly/_variables.scss';
+@import '~bulma/bulma.sass';
+@import '~bulmaswatch/darkly/_overrides.scss';
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
+
+.main-font {
+  font-family: 'PT Sans', sans-serif;
+}
+
+.product-card {
+  margin: 1rem;
+}
+
+.fix-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  overflow: hidden;
+}
