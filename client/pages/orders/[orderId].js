@@ -34,16 +34,18 @@ const OrderShow = ({ order, currentUser }) => {
   }
 
   return (
-    <div>
-      Time left to pay: {timeLeft} seconds
-      <StripeCheckout
-        token={({ id }) => doRequest({ token: id })}
-        stripeKey='pk_test_tC5uPlvkYfSrBY72A4mZFfw200ZQhqC3Aa'
-        amount={order.product.price * 100}
-        email={currentUser.email}
-      />
-      {errors}
-    </div>
+    <section className='section'>
+      <div>
+        <h3 classNaem='title is-3'>Time left to pay: {timeLeft} seconds</h3>
+        <StripeCheckout
+          token={({ id }) => doRequest({ token: id })}
+          stripeKey='pk_test_tC5uPlvkYfSrBY72A4mZFfw200ZQhqC3Aa'
+          amount={order.product.price * 100}
+          email={currentUser.email}
+        />
+        {errors}
+      </div>
+    </section>
   );
 };
 
