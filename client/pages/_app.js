@@ -1,4 +1,4 @@
-import 'react-bulma-components/dist/react-bulma-components.min.css';
+import '../components/styles.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import buildClient from '../api/build-client';
 import { ToastContainer } from 'react-toastify';
@@ -10,6 +10,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
       <div className='container'>
         <Component currentUser={currentUser} {...pageProps} />
       </div>
+      <footer className='footer fix-footer'></footer>
       <ToastContainer />
     </>
   );
