@@ -38,6 +38,7 @@ router.put(
     product.set({
       title: req.body.title,
       price: req.body.price,
+      description: req.body.description,
     });
 
     await product.save();

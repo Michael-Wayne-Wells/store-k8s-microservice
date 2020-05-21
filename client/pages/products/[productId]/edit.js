@@ -12,6 +12,7 @@ const EditProduct = ({ product, currentUser }) => {
     body: {
       title,
       price,
+      description,
     },
     onSuccess: () => Router.push('/'),
   });
