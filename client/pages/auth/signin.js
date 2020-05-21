@@ -22,35 +22,37 @@ export default () => {
   };
 
   return (
-    <div className='box'>
-      <form onSubmit={onSubmit}>
-        <h1 className='title'>Sign-in</h1>
-        <div className='field'>
-          <label className='label'>Email Address</label>
-          <div className='control'>
-            <input
-              className='input'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type='email'
-              placeholder='Enter Email'
-            ></input>
+    <section className='section'>
+      <div className='box'>
+        <form onSubmit={onSubmit}>
+          <h1 className='title'>Sign-in</h1>
+          <div className='field'>
+            <label className='label'>Email Address</label>
+            <div className='control'>
+              <input
+                className='input'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type='email'
+                placeholder='Enter Email'
+              ></input>
+            </div>
           </div>
-        </div>
-        <div className='field'>
-          <label className='label'>Password</label>
-          <div className='control'>
-            <input
-              className='input'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type='password'
-              placeholder='Enter Password'
-            ></input>
+          <div className='field'>
+            <label className='label'>Password</label>
+            <div className='control'>
+              <input
+                className='input'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type='password'
+                placeholder='Enter Password'
+              ></input>
+            </div>
           </div>
-        </div>
-        <button className='button is-primary'>Sign In</button>
-      </form>
-    </div>
+          <button className='button is-primary'>Sign In</button>
+        </form>
+      </div>
+    </section>
   );
 };
