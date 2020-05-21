@@ -23,6 +23,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       id: product.id,
       price: product.price,
       title: product.title,
+      description: product.description,
       userId: product.userId,
       orderId: product.orderId,
       version: product.version,
