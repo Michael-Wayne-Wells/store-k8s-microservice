@@ -39,7 +39,7 @@ const EditProduct = ({ product, currentUser }) => {
           <div className='field'>
             <label className='label'>Title</label>
             <input
-              value={title}
+              value={product.title}
               onChange={(e) => setTitle(e.target.value)}
               className='control input'
             />
@@ -47,7 +47,7 @@ const EditProduct = ({ product, currentUser }) => {
           <div className='field'>
             <label className='label'>Price</label>
             <input
-              value={price}
+              value={product.price}
               onBlur={onBlur}
               onChange={(e) => setPrice(e.target.value)}
               className='control input'
