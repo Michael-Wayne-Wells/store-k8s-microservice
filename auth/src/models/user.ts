@@ -55,10 +55,4 @@ userSchema.statics.build = (attrs: UserAttrs) => {
 //generics: angle bracket types provided to functions as arguments
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
-//example working creation of new user
-// const user = User.build({
-//   email: 'test@test.com',
-//   password: 'laksjfh',
-// });
-
 export { User };

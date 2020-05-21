@@ -10,7 +10,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
       <div className='container'>
         <Component currentUser={currentUser} {...pageProps} />
       </div>
-      <footer className='footer fix-footer'></footer>
+
       <ToastContainer />
     </>
   );

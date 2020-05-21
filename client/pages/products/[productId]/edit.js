@@ -5,6 +5,7 @@ import useRequest from '../../../hooks/use-request';
 const EditProduct = ({ product, currentUser }) => {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
   const { doRequest, errors } = useRequest({
     url: `/api/products/${product.id}`,
     method: 'put',

@@ -12,7 +12,7 @@ const DeleteProduct = ({ product, currentUser }) => {
   useEffect(() => {
     doRequest();
   }, []);
-  return <div>Something went wrong...</div>;
+  return null;
 };
 
 DeleteProduct.getInitialProps = async (context, client) => {

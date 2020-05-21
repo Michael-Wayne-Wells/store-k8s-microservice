@@ -20,6 +20,7 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
       id: product.id,
       orderId: product.orderId,
       userId: product.userId,
+      description: product.description,
       price: product.price,
       title: product.title,
       version: product.version,
