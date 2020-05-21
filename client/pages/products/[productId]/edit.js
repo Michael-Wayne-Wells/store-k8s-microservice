@@ -46,6 +46,15 @@ const EditProduct = ({ product, currentUser }) => {
             />
           </div>
           <div className='field'>
+            <label className='label'>Description</label>
+            <textarea
+              value={description}
+              placeholder={product.description}
+              onChange={(e) => setDescription(e.target.value)}
+              className='control input'
+            />
+          </div>
+          <div className='field'>
             <label className='label'>Price</label>
             <input
               placeholder={product.price}

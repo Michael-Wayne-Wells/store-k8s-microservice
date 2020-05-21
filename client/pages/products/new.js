@@ -5,12 +5,14 @@ import useRequest from '../../hooks/use-request';
 const NewProduct = () => {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
   const { doRequest, errors } = useRequest({
     url: '/api/products',
     method: 'post',
     body: {
       title,
       price,
+      description,
     },
     onSuccess: () => Router.push('/'),
   });
@@ -41,6 +43,14 @@ const NewProduct = () => {
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              className='control input'
+            />
+          </div>
+          <div className='field'>
+            <label className='label'>Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               className='control input'
             />
           </div>

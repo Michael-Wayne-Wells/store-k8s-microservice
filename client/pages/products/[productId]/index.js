@@ -17,6 +17,9 @@ const ProductShow = ({ product }) => {
       <div>
         <h3 className='title is-3'>{product.title}</h3>
         <h4 className='subtitle is-4'>Price: $ {product.price}</h4>
+        <div className='content'>
+          <p>Description: {product.description}</p>
+        </div>
         {errors}
         <button onClick={() => doRequest()} className='button is-primary'>
           Purchase

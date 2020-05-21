@@ -7,6 +7,7 @@ const LandingPage = ({ currentUser, products }) => {
         <article className='tile is-child box' key={product.id}>
           <h3 className='title is-size-3'>{product.title}</h3>
           <h3 className='subtitle is-size-3'>$ {product.price}</h3>
+          <p>{product.description}</p>
           <Link href='/products/[productId]' as={`/products/${product.id}`}>
             <button className='button is-primary'>View</button>
           </Link>
