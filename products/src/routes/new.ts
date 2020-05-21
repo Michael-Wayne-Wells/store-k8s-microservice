@@ -14,10 +14,11 @@ router.post(
 
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, price } = req.body;
+    const { title, description, price } = req.body;
 
     const product = Product.build({
       title,
+      description,
       price,
       userId: req.currentUser!.id,
     });
@@ -25,6 +26,7 @@ router.post(
     new ProductCreatedPublisher(natsWrapper.client).publish({
       id: product.id,
       title: product.title,
+      description: product.description,
       price: product.price,
       version: product.version,
       userId: product.userId,
