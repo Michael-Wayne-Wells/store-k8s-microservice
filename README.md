@@ -18,9 +18,3 @@ Each service of this application is containerized with Docker and runs on separa
  
  https://www.npmjs.com/package/@mwproducts/common
  
- ### TODO:
- * Payment processing
- * Front-end React functionality for products, orders, and general usage
- * Admin Privalges and dashboard
- * Order Cancellation 
- * Experation service
