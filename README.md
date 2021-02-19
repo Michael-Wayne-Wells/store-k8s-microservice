@@ -7,7 +7,7 @@
 server-side rendered React and Next.JS based application. 
 
 ### Backend: 
-utilizes event-based architecture, was written in Typescript, and built with Node, Nats Streamin Service, Express, Redis, and MongoDB. 
+utilizes event-based architecture, was written in Typescript, and built with Node, Nats Streaming Service, Express, Redis, and MongoDB. 
 
 ### Infastructure
 Each service of this application is containerized with Docker and runs on separate Kubernetes Deployments.
