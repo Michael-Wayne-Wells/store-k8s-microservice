@@ -9,12 +9,12 @@ server-side rendered React and Next.JS based application.
 ### Backend: 
 utilizes event-based architecture, was written in Typescript, and built with Node, Nats Streaming Service, Express, Redis, and MongoDB. 
 
-### Infastructure
+### Infrastructure
 Each service of this application is containerized with Docker and runs on separate Kubernetes Deployments.
 
 ### Custom NPM Package
  
- Utilzes a custom build npm dependency with middleware, event handeling, and error handeling.
+ Utilizes a custom build NPM dependency with middleware, event handling, and error handling.
  
  https://www.npmjs.com/package/@mwproducts/common
  
